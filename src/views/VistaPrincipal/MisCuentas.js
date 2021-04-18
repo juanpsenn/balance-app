@@ -9,7 +9,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
   },
   containerTarjeta: {
-    minWidth: 250,
+    minWidth: 256,
   },
 }));
 

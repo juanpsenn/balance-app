@@ -16,7 +16,6 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import CustomTooltip from "src/components/Tooltip";
 
 export default function TablaMovimientos() {
-  console.log(DateTime.now().toISODate());
   return (
     <Box>
       <Box pb={2} pt={2}>
