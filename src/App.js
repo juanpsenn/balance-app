@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import UserRoutes from "./routes";
 import { createStyles, ThemeProvider } from "@material-ui/styles";
 import theme from "./data/theme";
-import { makeStyles } from "@material-ui/core";
+import { createMuiTheme, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -26,7 +26,7 @@ const useStyles = makeStyles(() =>
       },
       "#root": {
         height: "100%",
-        minWidth: 960,
+        minWidth: 1200,
         width: "100%",
       },
     },
@@ -36,7 +36,7 @@ const useStyles = makeStyles(() =>
 function App() {
   useStyles();
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={createMuiTheme(theme)}>
       <Router>
         <UserRoutes />
       </Router>

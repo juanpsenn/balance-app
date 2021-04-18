@@ -1,6 +1,7 @@
 import { makeStyles } from "@material-ui/core";
 import React, { Suspense } from "react";
 import { renderRoutes } from "react-router-config";
+import NavBar from "./NavBar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,9 +16,9 @@ const useStyles = makeStyles((theme) => ({
     flex: "1 1 auto",
     overflow: "hidden",
     // paddingTop: 64,
-    [theme.breakpoints.up("lg")]: {
-      paddingLeft: 256,
-    },
+    // [theme.breakpoints.up("lg")]: {
+    // },
+    paddingLeft: 256,
   },
   contentContainer: {
     display: "flex",
@@ -35,6 +36,7 @@ export function DashboardUser({ route }) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
+      <NavBar />
       <div className={classes.wrapper}>
         <div className={classes.contentContainer}>
           <div className={classes.content}>

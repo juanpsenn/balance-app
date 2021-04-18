@@ -1,12 +1,12 @@
-import DescriptionTwoToneIcon from "@material-ui/icons/DescriptionTwoTone";
+import HomeIcon from "@material-ui/icons/Home";
 
 export default [
   {
     subheader: "Menu",
     items: [
       {
-        title: "Mi menu",
-        icon: DescriptionTwoToneIcon,
+        title: "Inicio",
+        icon: HomeIcon,
         href: "/",
       },
     ],
