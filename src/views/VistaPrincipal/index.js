@@ -5,7 +5,6 @@ import Page from "src/components/Page";
 import Header from "./Header";
 import MisCuentas from "./MisCuentas";
 import TablaMovimientos from "./TablaMovimientos";
-import MoneyInput from "src/components/MoneyInput";
 import ModalNuevoMovimiento from "src/components/Modales/ModalNuevoMovimiento";
 
 const useStyles = makeStyles((theme) => ({}));
@@ -17,7 +16,6 @@ export default function VistaPrincipal() {
       <Container maxWidth={false}>
         <Box mt={2}>
           <Header />
-          <MoneyInput />
           <Box mt={3}>
             <Grid container spacing={2}>
               <Grid item xs={12}>

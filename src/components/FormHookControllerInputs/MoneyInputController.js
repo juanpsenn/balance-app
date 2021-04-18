@@ -1,24 +1,24 @@
 import React from "react";
 import { TextField } from "@material-ui/core";
+import { Controller } from "react-hook-form";
 import MoneyInput from "@rschpdr/react-money-input";
 
-export default function MoneyInputs() {
-  const [value, setValue] = React.useState("");
-
-  const handleParseValue = (event) => {
-    console.log(event.target.value);
-    const originalValue = event.target.value;
-
-    setValue(originalValue);
+export default function MoneyInputController({
+  name,
+  setValue,
+  getValues,
+  ...props
+}) {
+  const handleChangeValue = (event) => {
+    const value = event.target.value;
+    setValue(name, value);
   };
 
   return (
     <MoneyInput
       customInput={TextField}
-      variant="outlined"
-      label="Importe"
-      placeholder="0,00"
-      value={value}
+      value={getValues(name)}
+      onChange={handleChangeValue}
       currencyConfig={{
         locale: "es-AR",
         currencyCode: "ARS",
@@ -26,7 +26,7 @@ export default function MoneyInputs() {
         useGrouping: true,
         minimumFractionDigits: undefined,
       }}
-      onChange={handleParseValue}
+      {...props}
     />
   );
 }
