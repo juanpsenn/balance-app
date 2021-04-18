@@ -6,6 +6,7 @@ import Header from "./Header";
 import MisCuentas from "./MisCuentas";
 import TablaMovimientos from "./TablaMovimientos";
 import MoneyInput from "src/components/MoneyInput";
+import ModalNuevoMovimiento from "src/components/Modales/ModalNuevoMovimiento";
 
 const useStyles = makeStyles((theme) => ({}));
 
@@ -28,6 +29,7 @@ export default function VistaPrincipal() {
             </Grid>
           </Box>
         </Box>
+        <ModalNuevoMovimiento open={true} />
       </Container>
     </Page>
   );
