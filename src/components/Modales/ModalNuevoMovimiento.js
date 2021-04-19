@@ -28,13 +28,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ModalNuevoMovimiento({ open, handleClose }) {
   const classes = useStyles();
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
   return (
     <Modal open={open}>
       <Card className={classes.root}>
         <CardHeader title="Nuevo movimiento" />
         <Divider />
         <CardContent>
-          <MovimientoForm />
+          <MovimientoForm onSubmit={onSubmit} />
         </CardContent>
         <Divider />
         <CardActions style={{ justifyContent: "flex-end" }}>

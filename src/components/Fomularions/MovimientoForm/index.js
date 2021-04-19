@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MovimientoForm({ handleCancel, handleSuccess }) {
+export default function MovimientoForm({ onSubmit }) {
   const classes = useStyles();
   const {
     register,
@@ -39,10 +39,10 @@ export default function MovimientoForm({ handleCancel, handleSuccess }) {
       description: null,
     },
   });
-  console.log(watch());
+  const watchFields = watch("amount");
 
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={2}>
         <Grid item container spacing={2} xs={6}>
           <Grid item xs={12}>
@@ -68,8 +68,8 @@ export default function MovimientoForm({ handleCancel, handleSuccess }) {
               label="Motivo"
               control={control}
             >
-              <MenuItem>Ingreso</MenuItem>
-              <MenuItem>Egreso</MenuItem>
+              <MenuItem value="1">Ingreso</MenuItem>
+              <MenuItem value="2">Egreso</MenuItem>
             </InputController>
           </Grid>
           <Grid item xs={12}>

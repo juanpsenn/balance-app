@@ -27,7 +27,7 @@ export default function InputController({
           <Controller
             control={control}
             name={name}
-            render={({ onChange, onBlur, value }) => (
+            render={({ field: { onChange, onBlur, value } }) => (
               <Select
                 labelId={labelId}
                 value={value}
@@ -48,17 +48,19 @@ export default function InputController({
         <Controller
           control={control}
           name={name}
-          render={({ onChange, onBlur, value }) => (
-            <TextField
-              label={label}
-              helperText={helperText}
-              error={error}
-              value={value}
-              onChange={onChange}
-              onBlur={onBlur}
-              {...props}
-            />
-          )}
+          render={({ field: { onChange, onBlur, value } }) => {
+            return (
+              <TextField
+                label={label}
+                helperText={helperText}
+                error={error}
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+                {...props}
+              />
+            );
+          }}
         />
       )}
     </React.Fragment>
