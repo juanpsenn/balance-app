@@ -10,11 +10,11 @@ export default [
     path: "*",
     component: DashboardUser,
     routes: [
-      {
-        path: "/",
-        exact: true,
-        component: lazy(() => import("src/views/VistaPrincipal")),
-      },
+      // {
+      //   path: "/",
+      //   exact: true,
+      //   component: lazy(() => import("src/views/VistaPrincipal")),
+      // },
       {
         path: "/movimientos-general/",
         exact: true,
