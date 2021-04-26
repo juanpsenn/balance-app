@@ -26,7 +26,6 @@ const useStyles = makeStyles(() =>
       },
       "#root": {
         height: "100%",
-        minWidth: 1200,
         width: "100%",
       },
     },

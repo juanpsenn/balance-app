@@ -3,6 +3,7 @@ import {
   Box,
   Divider,
   Drawer,
+  Hidden,
   List,
   ListSubheader,
   makeStyles,
@@ -13,8 +14,13 @@ import { useLocation, matchPath } from "react-router";
 import NavItem from "./NavItem";
 
 const useStyles = makeStyles(() => ({
-  drawerPaper: {
+  mobileDrawer: {
     width: 256,
+  },
+  desktopDrawer: {
+    width: 256,
+    top: 64,
+    height: "calc(100% - 64px)",
   },
 }));
 
@@ -70,9 +76,16 @@ function reduceChildRoutes({ acc, pathname, item, depth = 0 }) {
   return acc;
 }
 
-export default function NavBar({ ...rest }) {
+export default function NavBar({ openMobile, onMobileClose, ...rest }) {
   const classes = useStyles();
   const location = useLocation();
+
+  React.useEffect(() => {
+    if (openMobile && onMobileClose) {
+      onMobileClose();
+    }
+    // eslint-disable-next-line
+  }, [location.pathname]);
 
   const content = (
     <Box height="100%" display="flex" flexDirection="column">
@@ -115,13 +128,28 @@ export default function NavBar({ ...rest }) {
   );
 
   return (
-    <Drawer
-      classes={{ paper: classes.drawerPaper }}
-      anchor="left"
-      open
-      variant="persistent"
-    >
-      {content}
-    </Drawer>
+    <>
+      <Hidden mdUp>
+        <Drawer
+          anchor="left"
+          classes={{ paper: classes.mobileDrawer }}
+          onClose={onMobileClose}
+          open={openMobile}
+          variant="temporary"
+        >
+          {content}
+        </Drawer>
+      </Hidden>
+      <Hidden mdDown>
+        <Drawer
+          anchor="left"
+          classes={{ paper: classes.desktopDrawer }}
+          open
+          variant="persistent"
+        >
+          {content}
+        </Drawer>
+      </Hidden>
+    </>
   );
 }

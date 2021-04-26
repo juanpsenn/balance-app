@@ -28,10 +28,19 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ModalNuevoMovimiento({ open, handleClose }) {
   const classes = useStyles();
+  const refForm = React.createRef();
 
   const onSubmit = (data) => {
     console.log(data);
   };
+
+  React.useEffect(() => {
+    console.log(refForm.current);
+  }, [refForm.current]);
+
+  if (!open) {
+    return null;
+  }
 
   return (
     <Modal open={open}>
@@ -39,14 +48,18 @@ export default function ModalNuevoMovimiento({ open, handleClose }) {
         <CardHeader title="Nuevo movimiento" />
         <Divider />
         <CardContent>
-          <MovimientoForm onSubmit={onSubmit} />
+          <MovimientoForm ref={refForm} onSubmit={onSubmit} />
         </CardContent>
         <Divider />
         <CardActions style={{ justifyContent: "flex-end" }}>
-          <Button variant="outlined" color={"primary"}>
+          <Button variant="outlined" color={"primary"} onClick={handleClose}>
             Cancelar
           </Button>
-          <Button variant="contained" color={"primary"}>
+          <Button
+            variant="contained"
+            color={"primary"}
+            onClick={() => refForm.current.handleSubmit()}
+          >
             Aceptar
           </Button>
         </CardActions>
