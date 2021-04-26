@@ -30,7 +30,7 @@ function TopBar({ className, onMobileNavOpen, ...rest }) {
   return (
     <AppBar className={clsx(classes.root, className)} {...rest}>
       <Toolbar className={classes.toolbar}>
-        <Hidden mdUp>
+        <Hidden lgUp>
           <IconButton
             className={classes.menuButton}
             color="inherit"

@@ -129,7 +129,7 @@ export default function NavBar({ openMobile, onMobileClose, ...rest }) {
 
   return (
     <>
-      <Hidden mdUp>
+      <Hidden lgUp>
         <Drawer
           anchor="left"
           classes={{ paper: classes.mobileDrawer }}

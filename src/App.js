@@ -1,9 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import UserRoutes from "./routes";
+import Routes from "./routes";
 import { createStyles, ThemeProvider } from "@material-ui/styles";
 import theme from "./data/theme";
 import { createMuiTheme, makeStyles } from "@material-ui/core";
+import AuthContextProvider from "src/context/AuthContext";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -36,9 +37,11 @@ function App() {
   useStyles();
   return (
     <ThemeProvider theme={createMuiTheme(theme)}>
-      <Router>
-        <UserRoutes />
-      </Router>
+      <AuthContextProvider>
+        <Router>
+          <Routes />
+        </Router>
+      </AuthContextProvider>
     </ThemeProvider>
   );
 }

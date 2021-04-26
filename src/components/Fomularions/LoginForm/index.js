@@ -8,6 +8,8 @@ import InputController from "src/components/FormHookControllerInputs/InputContro
 import wait from "src/utils/wait";
 import SplashScreen from "src/components/SplashScreen";
 import { Button } from "@material-ui/core";
+import authRequest from "src/request/authRequest";
+import { AuthContext } from "src/context/AuthContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,10 +37,11 @@ const useStyles = makeStyles((theme) => ({
 export default function LoginForm() {
   const classes = useStyles();
   const [isOpenSplahScreen, setOpenSplashScreen] = React.useState(false);
+  const { handlerAuth } = React.useContext(AuthContext);
   const methods = useForm({
     mode: "onChange | onSubmit",
     defaultValues: {
-      email: "",
+      username: "",
       password: "",
     },
   });
@@ -48,9 +51,17 @@ export default function LoginForm() {
     formState: { errors },
   } = methods;
 
-  const handleSubmitLogin = async () => {
+  const handleSubmitLogin = async (dataForm) => {
     setOpenSplashScreen(true);
-    await wait(2);
+    try {
+      const { status, data } = await authRequest.login({ ...dataForm });
+      sessionStorage.setItem("_uid", data.token);
+      await wait(3000);
+      setOpenSplashScreen(false);
+      handlerAuth.setAuth(true);
+    } catch (error) {
+      setOpenSplashScreen(false);
+    }
   };
 
   return (
@@ -67,9 +78,9 @@ export default function LoginForm() {
           variant="outlined"
           margin="normal"
           fullWidth
-          label="Email"
-          name="email"
-          autoComplete="email"
+          label="Usuario"
+          name="username"
+          autoComplete="username"
           autoFocus
         />
         <InputController

@@ -1,3 +1,3 @@
-export default function wait(time) {
-  return new Promise((res) => setTimeout(res, time));
-}
+export const wait = (time) => new Promise((res) => setTimeout(res, time));
+
+export default wait;
