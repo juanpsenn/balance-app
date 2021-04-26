@@ -4,6 +4,7 @@ import Page from "src/components/Page";
 import Header from "./Header";
 import ModalNuevoMovimiento from "src/components/Modales/ModalNuevoMovimiento";
 import TablaMovimientos from "./TablaMovimientos";
+import { listMovements } from "src/request/movementsRequest";
 
 export default function ListaMovimientosGeneral() {
   const [
@@ -18,6 +19,18 @@ export default function ListaMovimientosGeneral() {
   const handleCloseModalNuevoMovimiento = () => {
     setOpenModalNuevoMovimiento(false);
   };
+
+  const handleGetMovements = async () => {
+    try {
+      const { status, data } = await listMovements({});
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  React.useEffect(() => {
+    handleGetMovements();
+  }, []);
 
   return (
     <Page>
