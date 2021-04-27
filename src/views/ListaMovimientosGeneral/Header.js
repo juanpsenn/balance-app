@@ -33,6 +33,7 @@ export default function Header({ handleOpenModalNuevoMovimiento, ...rest }) {
 
       <Grid item>
         <Button
+          style={{ borderRadius: 30 }}
           color="primary"
           variant="contained"
           className={classes.action}

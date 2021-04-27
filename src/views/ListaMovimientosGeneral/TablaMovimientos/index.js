@@ -19,9 +19,6 @@ import CustomTooltip from "src/components/Tooltip";
 export default function TablaMovimientos() {
   return (
     <Box>
-      <Box pb={2} pt={2}>
-        <Typography variant="h4"> Ultimos movimientos</Typography>
-      </Box>
       <Card>
         <TableContainer>
           <Box minWidth={920}>

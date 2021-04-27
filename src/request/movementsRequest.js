@@ -13,13 +13,13 @@ export const listMovements = async ({
   from_date,
   to_date,
   orderby,
-  page,
-  size,
+  limit,
+  offset,
 }) => {
   const response = await axiosRequest({
     url: `/movements/list/?from_date=${from_date || ""}&to_date=${
       to_date || ""
-    }&orderby=${orderby || ""}&page=${page || 1}&size=${size || 10}`,
+    }&orderby=${orderby || ""}&offset=${offset || 0}&limit=${limit || 10}`,
     method: "GET",
   });
   return response;

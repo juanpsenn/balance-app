@@ -1,16 +1,19 @@
 import React from "react";
-import { Box, Container } from "@material-ui/core";
+import { Box, Container, useMediaQuery, useTheme } from "@material-ui/core";
 import Page from "src/components/Page";
 import Header from "./Header";
 import ModalNuevoMovimiento from "src/components/Modales/ModalNuevoMovimiento";
 import TablaMovimientos from "./TablaMovimientos";
 import { listMovements } from "src/request/movementsRequest";
+import ListaMovimientos from "./ListaMovimientos";
 
 export default function ListaMovimientosGeneral() {
   const [
     isOpenModalNuevoMovimiento,
     setOpenModalNuevoMovimiento,
   ] = React.useState(false);
+  const theme = useTheme();
+  const isMdDown = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleOpenModalNuevoMovimiento = () => {
     setOpenModalNuevoMovimiento(true);
@@ -40,7 +43,8 @@ export default function ListaMovimientosGeneral() {
             handleOpenModalNuevoMovimiento={handleOpenModalNuevoMovimiento}
           />
           <Box mt={3}>
-            <TablaMovimientos />
+            {!isMdDown && <TablaMovimientos />}
+            {isMdDown && <ListaMovimientos />}
           </Box>
         </Box>
       </Container>
