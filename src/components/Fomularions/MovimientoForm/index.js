@@ -7,6 +7,8 @@ import InputImage from "./InputImage";
 import { DateTime } from "luxon";
 import schemaValidation from "./schemaValidation";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { createMovement } from "src/request/movementsRequest";
+import { listCategories, listAccounts } from "src/request/genericsRequest";
 
 const useStyles = makeStyles((theme) => ({
   dropArea: {
@@ -21,9 +23,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function MovimientoForm({ onSubmit }, ref) {
+function MovimientoForm({ onSubmit, isLoading = () => {} }, ref) {
   const classes = useStyles();
   const btnRef = React.createRef();
+  const [categorias, setCategorias] = React.useState([]);
+  const [cuentas, setCuentas] = React.useState([]);
   const methods = useForm({
     mode: "onChange | onSubmit",
     defaultValues: {
@@ -44,8 +48,34 @@ function MovimientoForm({ onSubmit }, ref) {
     formState: { errors },
   } = methods;
 
-  const handleSubmitRequest = (data) => {
-    console.log(data);
+  const handleSubmitRequest = async (data) => {
+    try {
+      isLoading(true);
+      const { status } = await createMovement({
+        ...data,
+        amount: Number(data.type) ? data.amount : -data.amount,
+        date_time: DateTime.fromJSDate(data.date_time).toISODate(),
+      });
+      isLoading(false);
+      onSubmit();
+    } catch (error) {
+      console.log(error);
+      isLoading(false);
+    }
+  };
+
+  const handleGetCategorias = async () => {
+    try {
+      const { status, data } = await listCategories();
+      status === 200 ? setCategorias(data) : setCategorias([]);
+    } catch (error) {}
+  };
+
+  const handleGetCuentas = async () => {
+    try {
+      const { status, data } = await listAccounts();
+      status === 200 ? setCuentas(data) : setCuentas([]);
+    } catch (error) {}
   };
 
   const handleSubmitForm = () => {
@@ -56,6 +86,11 @@ function MovimientoForm({ onSubmit }, ref) {
     handleSubmit: handleSubmitForm,
     reset,
   }));
+
+  React.useEffect(() => {
+    handleGetCategorias();
+    handleGetCuentas();
+  }, []);
 
   return (
     <form onSubmit={handleSubmit(handleSubmitRequest)}>
@@ -73,7 +108,7 @@ function MovimientoForm({ onSubmit }, ref) {
               helperText={Boolean(errors.type?.message) && errors.type?.message}
             >
               <MenuItem value="1">Ingreso</MenuItem>
-              <MenuItem value="2">Egreso</MenuItem>
+              <MenuItem value="0">Egreso</MenuItem>
             </InputController>
           </Grid>
           <Grid item xs={12}>
@@ -89,8 +124,11 @@ function MovimientoForm({ onSubmit }, ref) {
                 Boolean(errors.account?.message) && errors.account?.message
               }
             >
-              <MenuItem>Ingreso</MenuItem>
-              <MenuItem>Egreso</MenuItem>
+              {cuentas.map((c, i) => (
+                <MenuItem key={i} value={c.id}>
+                  {c.display_name}
+                </MenuItem>
+              ))}
             </InputController>
           </Grid>
           <Grid item xs={12}>
@@ -124,8 +162,11 @@ function MovimientoForm({ onSubmit }, ref) {
                 Boolean(errors.category?.message) && errors.category?.message
               }
             >
-              <MenuItem value="1">Ingreso</MenuItem>
-              <MenuItem value="2">Egreso</MenuItem>
+              {categorias.map((c, i) => (
+                <MenuItem key={i} value={c.id}>
+                  {c.name}
+                </MenuItem>
+              ))}
             </InputController>
           </Grid>
           <Grid item xs={12}>

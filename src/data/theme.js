@@ -82,6 +82,24 @@ const theme = createMuiTheme(
           padding: 10,
         },
       },
+      MuiCard: {
+        root: {
+          borderRadius: 10,
+        },
+      },
+      MuiButton: {
+        root: {
+          borderRadius: 20,
+        },
+      },
+      MuiOutlinedInput: {
+        root: {
+          borderRadius: 25,
+        },
+        // input: {
+        //   paddingLeft: 30,
+        // },
+      },
     },
     breakpoints: {
       values: {

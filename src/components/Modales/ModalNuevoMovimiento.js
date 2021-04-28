@@ -29,9 +29,10 @@ const useStyles = makeStyles((theme) => ({
 export default function ModalNuevoMovimiento({ open, handleClose }) {
   const classes = useStyles();
   const refForm = React.createRef();
+  const [isLoading, setLoading] = React.useState(false);
 
   const onSubmit = (data) => {
-    console.log(data);
+    handleClose();
   };
 
   React.useEffect(() => {
@@ -48,7 +49,11 @@ export default function ModalNuevoMovimiento({ open, handleClose }) {
         <CardHeader title="Nuevo movimiento" />
         <Divider />
         <CardContent>
-          <MovimientoForm ref={refForm} onSubmit={onSubmit} />
+          <MovimientoForm
+            ref={refForm}
+            onSubmit={onSubmit}
+            isLoading={setLoading}
+          />
         </CardContent>
         <Divider />
         <CardActions style={{ justifyContent: "flex-end" }}>
@@ -58,6 +63,7 @@ export default function ModalNuevoMovimiento({ open, handleClose }) {
           <Button
             variant="contained"
             color={"primary"}
+            disabled={isLoading}
             onClick={() => refForm.current.handleSubmit()}
           >
             Aceptar

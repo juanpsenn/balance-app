@@ -4,7 +4,7 @@ import ListItem from "./ListItem";
 
 export default function ListaMovimientos(params) {
   return (
-    <Card style={{ borderRadius: 15 }}>
+    <Card>
       <List>
         {[0, 0, 0, 0, 0, 0, 1].map((x) => (
           <ListItem />
