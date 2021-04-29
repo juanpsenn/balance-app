@@ -98,7 +98,10 @@ export default function ListItem({ movimiento }) {
             </Typography>
 
             <Typography variant="h6">
-              Fecha: {DateTime.fromISO(movimiento.date_time).toISODate()}
+              Fecha:{" "}
+              {DateTime.fromISO(movimiento.date_time, {
+                setZone: "utc",
+              }).toISODate()}
             </Typography>
           </Box>
         </Box>
@@ -122,7 +125,9 @@ export default function ListItem({ movimiento }) {
                 </Typography>
                 <Typography variant="body2">
                   Fecha de carga:{" "}
-                  {DateTime.fromISO(movimiento.registred).toISODate()}
+                  {DateTime.fromISO(movimiento.registred, {
+                    setZone: "utc",
+                  }).toISODate()}
                 </Typography>
               </Box>
               <Box>

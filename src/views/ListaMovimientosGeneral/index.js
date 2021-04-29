@@ -69,6 +69,8 @@ export default function ListaMovimientosGeneral() {
     handleGetMovements();
   }, [page]);
 
+  console.log();
+
   return (
     <Page>
       <Container maxWidth={false}>

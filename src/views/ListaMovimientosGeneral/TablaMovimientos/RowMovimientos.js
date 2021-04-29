@@ -39,6 +39,12 @@ const useStyles = makeStyles((theme, props) => ({
   downArrow: { color: theme.palette.error.main },
 }));
 
+console.log(
+  DateTime.fromISO("2021-04-28T00:00:00Z", { setZone: "utc" }).toLocaleString(
+    DateTime.DATETIME_SHORT
+  )
+);
+
 export default function RowMovimiento({ movimiento }) {
   const classes = useStyles({ amount: Number(movimiento.amount) });
   return (
@@ -51,7 +57,7 @@ export default function RowMovimiento({ movimiento }) {
         )}
       </TableCell>
       <TableCell>
-        {DateTime.fromISO(movimiento.date_time).toISODate()}
+        {DateTime.fromISO(movimiento.date_time, { setZone: "utc" }).toISODate()}
       </TableCell>
       <TableCell>{movimiento.account.display_name}</TableCell>
       <TableCell>{movimiento.category.name}</TableCell>
