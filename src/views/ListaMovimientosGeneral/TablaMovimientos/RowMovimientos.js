@@ -56,6 +56,7 @@ export default function RowMovimiento({ movimiento }) {
           <ArrowDownwardIcon fontSize="small" className={classes.downArrow} />
         )}
       </TableCell>
+      <TableCell>{movimiento.id.split("-")[0]}</TableCell>
       <TableCell>
         {DateTime.fromISO(movimiento.date_time, { setZone: "utc" }).toISODate()}
       </TableCell>

@@ -27,8 +27,9 @@ export default function TablaMovimientos({ movimientos }) {
             <Table>
               <TableHead>
                 <TableRow>
+                  <TableCell></TableCell>
+                  <TableCell>ID</TableCell>
                   <TableCell>Fecha</TableCell>
-                  <TableCell>Usuario</TableCell>
                   <TableCell>Tipo</TableCell>
                   <TableCell>Motivo</TableCell>
                   <TableCell>Descripción</TableCell>
