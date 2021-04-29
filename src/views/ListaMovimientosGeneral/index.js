@@ -57,6 +57,10 @@ export default function ListaMovimientosGeneral() {
       if (status === 200) {
         setMovimientos(data.results);
         setCount(data.count);
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
       } else {
         setMovimientos([]);
         setCount(0);

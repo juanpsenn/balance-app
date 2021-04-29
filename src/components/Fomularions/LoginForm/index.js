@@ -56,6 +56,7 @@ export default function LoginForm() {
     try {
       const { status, data } = await authRequest.login({ ...dataForm });
       sessionStorage.setItem("_uid", data.token);
+      sessionStorage.setItem("username", data.username);
       await wait(3000);
       setOpenSplashScreen(false);
       handlerAuth.setAuth(true);

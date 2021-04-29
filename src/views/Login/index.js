@@ -50,7 +50,7 @@ export default function Login() {
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <LoginForm />
-        <Box mt={5}>
+        <Box mt={5} p={1}>
           <Copyright />
         </Box>
       </Grid>

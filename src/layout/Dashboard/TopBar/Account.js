@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext } from "react";
+import React, { useRef, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { useHistory } from "react-router";
 import {
@@ -11,6 +11,7 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
+import { AuthContext } from "src/context/AuthContext";
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -28,14 +29,8 @@ function Account() {
   const history = useHistory();
   const ref = useRef(null);
   const [isOpen, setOpen] = useState(false);
-
-  const handleLogout = async () => {};
-
-  const handleResponse = (response) => {};
-
-  const handleErrorResponse = (response) => {
-    console.log(response);
-  };
+  const username = sessionStorage.getItem("username");
+  const { handlerAuth } = React.useContext(AuthContext);
 
   const handleOpen = () => {
     setOpen(true);
@@ -45,19 +40,10 @@ function Account() {
     setOpen(false);
   };
 
-  const hanldeParseUsername = () => {};
-
-  // const handleLogout = async () => {
-  //   try {
-  //     handleClose();
-  //     await dispatch(logout());
-  //     history.push("/");
-  //   } catch (error) {
-  //     enqueueSnackbar("Unable to logout", {
-  //       variant: "error",
-  //     });
-  //   }
-  // };
+  const handleLogout = async () => {
+    sessionStorage.clear();
+    handlerAuth.setAuth(false);
+  };
 
   return (
     <>
@@ -70,7 +56,7 @@ function Account() {
       >
         {/* <Avatar alt="User" className={classes.avatar} src={null} /> */}
         <Typography variant="h6" color="inherit">
-          {`${hanldeParseUsername()}`}
+          {`${username}`}
         </Typography>
       </Box>
       <Menu
