@@ -197,6 +197,7 @@ function MovimientoForm({ onSubmit, isLoading = () => {} }, ref) {
             />
           </Grid>
         </Grid>
+        <input type="submit" style={{ display: "none" }} />
         <Grid item xs={12} md={6}>
           <InputImage />
         </Grid>

@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import MovimientoForm from "../Fomularions/MovimientoForm";
+import CircularProgressForButton from "src/components/CircularProgressForButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,8 +32,8 @@ export default function ModalNuevoMovimiento({ open, handleClose }) {
   const refForm = React.createRef();
   const [isLoading, setLoading] = React.useState(false);
 
-  const onSubmit = (data) => {
-    handleClose();
+  const onSubmit = () => {
+    handleClose(false);
   };
 
   React.useEffect(() => {
@@ -57,7 +58,12 @@ export default function ModalNuevoMovimiento({ open, handleClose }) {
         </CardContent>
         <Divider />
         <CardActions style={{ justifyContent: "flex-end" }}>
-          <Button variant="outlined" color={"primary"} onClick={handleClose}>
+          <Button
+            variant="outlined"
+            color={"primary"}
+            disabled={isLoading}
+            onClick={handleClose}
+          >
             Cancelar
           </Button>
           <Button
@@ -67,6 +73,7 @@ export default function ModalNuevoMovimiento({ open, handleClose }) {
             onClick={() => refForm.current.handleSubmit()}
           >
             Aceptar
+            {isLoading && <CircularProgressForButton />}
           </Button>
         </CardActions>
       </Card>
