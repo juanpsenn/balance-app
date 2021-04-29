@@ -1,10 +1,13 @@
+import objToFormData from "src/utils/objToFormData";
 import axiosRequest from "./axiosRequest";
 
 export const createMovement = async (data) => {
+  const dataForm = objToFormData(data);
   const response = await axiosRequest({
     url: "/movements/",
     method: "POST",
-    data,
+    data: dataForm,
+    headers: { "Content-Type": "multipart/form-data" },
   });
   return response;
 };
