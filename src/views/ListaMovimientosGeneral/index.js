@@ -30,6 +30,7 @@ export default function ListaMovimientosGeneral() {
     setOpenModalNuevoMovimiento,
   ] = React.useState(false);
   const [page, setPage] = React.useState(1);
+  const [count, setCount] = React.useState(0);
   const [movimientos, setMovimientos] = React.useState([]);
   const [isOpenBackdrop, setOpenBackdrop] = React.useState(false);
   const theme = useTheme();
@@ -53,7 +54,13 @@ export default function ListaMovimientosGeneral() {
         offset: limit * (page - 1),
         orderby: "-date_time",
       });
-      status === 200 ? setMovimientos(data.results) : setMovimientos([]);
+      if (status === 200) {
+        setMovimientos(data.results);
+        setCount(data.count);
+      } else {
+        setMovimientos([]);
+        setCount(0);
+      }
       setOpenBackdrop(false);
     } catch (error) {
       console.error(error);
@@ -68,8 +75,6 @@ export default function ListaMovimientosGeneral() {
   React.useEffect(() => {
     handleGetMovements();
   }, [page]);
-
-  console.log();
 
   return (
     <Page>
@@ -89,7 +94,7 @@ export default function ListaMovimientosGeneral() {
             alignItems="center"
           >
             <Pagination
-              count={10}
+              count={Math.ceil(count / 10)}
               page={page}
               color="primary"
               onChange={handleChangePage}
