@@ -7,13 +7,38 @@ import {
   IconButton,
   List,
   ListItem as ListItemMUI,
+  makeStyles,
   SvgIcon,
   Typography,
 } from "@material-ui/core";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import { DateTime } from "luxon";
+import { parseCurrencyARS } from "src/utils/parseCurrency";
+import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 
-export default function ListItem() {
+const useStyles = makeStyles((theme, props) => ({
+  movimientoItem: {
+    "-webkit-box-shadow": (props) =>
+      props.amount > 0
+        ? `inset 0px 0px 65px 25px ${theme.palette.success.main}09`
+        : `inset 0px 0px 65px 25px ${theme.palette.error.main}09`,
+    "-moz-box-shadow": (props) =>
+      props.amount > 0
+        ? `inset 0px 0px 65px 25px ${theme.palette.success.main}09`
+        : `inset 0px 0px 65px 25px ${theme.palette.error.main}09`,
+    "box-shadow": (props) =>
+      props.amount > 0
+        ? `inset 0px 0px 65px 25px ${theme.palette.success.main}09`
+        : `inset 0px 0px 65px 25px ${theme.palette.error.main}09`,
+  },
+  upArrow: { color: theme.palette.success.main },
+  downArrow: { color: theme.palette.error.main },
+}));
+
+export default function ListItem({ movimiento }) {
+  const classes = useStyles({ amount: Number(movimiento.amount) });
   const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
@@ -22,31 +47,65 @@ export default function ListItem() {
 
   return (
     <>
-      <ListItemMUI button onClick={handleClick}>
-        <Box p={1} width={"100%"} display="flex" justifyContent="space-between">
-          <Box mr={2}>
-            <Avatar>
-              <LockOutlinedIcon />
-            </Avatar>
+      <ListItemMUI
+        button
+        onClick={handleClick}
+        className={classes.movimientoItem}
+      >
+        <Box
+          py={1}
+          width={"100%"}
+          display="flex"
+          justifyContent="space-between"
+        >
+          <Box
+            mr={1}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            {Number(movimiento.amount) > 0 ? (
+              <ArrowUpwardIcon fontSize="small" className={classes.upArrow} />
+            ) : (
+              <ArrowDownwardIcon
+                fontSize="small"
+                className={classes.downArrow}
+              />
+            )}
           </Box>
-          <Box mr={1}>
-            <Typography variant="h6">VENTA - DUCK |</Typography>
+          <Box>
+            <Typography variant="h6">{movimiento.category.name}</Typography>
 
-            <Typography variant="body1">
-              Importe: $999 - Cuenta: Santander Diego
+            <Typography variant="body2">
+              Importe: {parseCurrencyARS(movimiento.amount)}
+            </Typography>
+            <Typography variant="body2">
+              Cuenta: {movimiento.account.display_name}
             </Typography>
           </Box>
           <Box flexGrow={1}></Box>
-          <Box>
-            <Typography variant="body1">Saldo: 999,00</Typography>
+          {/* <Box flexGrow={1}></Box>
+          <Box display="flex" justifyContent="center" alignItems="center">
+            {Number(movimiento.amount) > 0 ? (
+              <ArrowUpwardIcon className={classes.upArrow} />
+            ) : (
+              <ArrowDownwardIcon className={classes.downArrow} />
+            )}
+          </Box> */}
+          <Box ml={2}>
+            <Typography variant="body2">
+              Saldo: {parseCurrencyARS(movimiento.balance_to_date)}
+            </Typography>
 
-            <Typography variant="h6">Fecha:21/04/2021</Typography>
+            <Typography variant="h6">
+              Fecha: {DateTime.fromISO(movimiento.date_time).toISODate()}
+            </Typography>
           </Box>
         </Box>
       </ListItemMUI>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <ListItemMUI>
+          <ListItemMUI className={classes.movimientoItem}>
             <Box
               p={1}
               width={"100%"}
@@ -55,12 +114,15 @@ export default function ListItem() {
             >
               <Box mr={1}>
                 <Typography variant="body2">
-                  Descripcion: Fresh dr. quiros duck basic mensualidad
+                  Descripcion: {movimiento.description}
                 </Typography>
 
-                <Typography variant="body2">Usuario: Enzo</Typography>
                 <Typography variant="body2">
-                  Fecha de carga: 21/04/20202
+                  Usuario: {movimiento.registred_by}
+                </Typography>
+                <Typography variant="body2">
+                  Fecha de carga:{" "}
+                  {DateTime.fromISO(movimiento.registred).toISODate()}
                 </Typography>
               </Box>
               <Box>

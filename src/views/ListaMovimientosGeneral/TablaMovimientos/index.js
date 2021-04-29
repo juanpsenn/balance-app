@@ -15,8 +15,10 @@ import {
 import { DateTime } from "luxon";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import CustomTooltip from "src/components/Tooltip";
+import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
+import RowMovimiento from "./RowMovimientos";
 
-export default function TablaMovimientos() {
+export default function TablaMovimientos({ movimientos }) {
   return (
     <Box>
       <Card>
@@ -36,40 +38,9 @@ export default function TablaMovimientos() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                <TableRow>
-                  <TableCell>{DateTime.now().toISODate()}</TableCell>
-                  <TableCell>Usuario</TableCell>
-                  <TableCell>INGRESO</TableCell>
-                  <TableCell>VENTA - DUCK</TableCell>
-                  <TableCell>Mensualidad - Duck - Premium</TableCell>
-                  <TableCell align="right">$5.000,00</TableCell>
-                  <TableCell align="right">0,00</TableCell>
-                  <TableCell align="right">
-                    <CustomTooltip title="Ver movimiento">
-                      <IconButton size="small">
-                        <SvgIcon fontSize="small">
-                          <VisibilityIcon />
-                        </SvgIcon>
-                      </IconButton>
-                    </CustomTooltip>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>{DateTime.now().toISODate()}</TableCell>
-                  <TableCell>Usuario</TableCell>
-                  <TableCell>EGRESO</TableCell>
-                  <TableCell>SUELDOS</TableCell>
-                  <TableCell align="right"></TableCell>
-                  <TableCell align="right">$5.000,00</TableCell>
-                  <TableCell align="right"> - $5.000,00</TableCell>
-                  <TableCell align="right">
-                    <IconButton size="small">
-                      <SvgIcon fontSize="small">
-                        <VisibilityIcon />
-                      </SvgIcon>
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
+                {movimientos.map((movimiento, index) => (
+                  <RowMovimiento movimiento={movimiento} />
+                ))}
               </TableBody>
             </Table>
           </Box>

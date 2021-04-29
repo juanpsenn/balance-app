@@ -12,6 +12,7 @@ export default function ListaMovimientosGeneral() {
     isOpenModalNuevoMovimiento,
     setOpenModalNuevoMovimiento,
   ] = React.useState(false);
+  const [movimientos, setMovimientos] = React.useState([]);
   const theme = useTheme();
   const isMdDown = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -21,11 +22,13 @@ export default function ListaMovimientosGeneral() {
 
   const handleCloseModalNuevoMovimiento = () => {
     setOpenModalNuevoMovimiento(false);
+    handleGetMovements();
   };
 
   const handleGetMovements = async () => {
     try {
       const { status, data } = await listMovements({});
+      status === 200 ? setMovimientos(data.results) : setMovimientos([]);
     } catch (error) {
       console.error(error);
     }
@@ -43,8 +46,8 @@ export default function ListaMovimientosGeneral() {
             handleOpenModalNuevoMovimiento={handleOpenModalNuevoMovimiento}
           />
           <Box mt={3}>
-            {!isMdDown && <TablaMovimientos />}
-            {isMdDown && <ListaMovimientos />}
+            {!isMdDown && <TablaMovimientos movimientos={movimientos} />}
+            {isMdDown && <ListaMovimientos movimientos={movimientos} />}
           </Box>
         </Box>
       </Container>
