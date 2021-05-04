@@ -1,31 +1,42 @@
 import React from "react";
 import {
+  Backdrop,
   Box,
-  Card,
-  CardContent,
+  CircularProgress,
   Container,
-  Grid,
-  Typography,
   useMediaQuery,
   useTheme,
+  makeStyles,
 } from "@material-ui/core";
 import Page from "src/components/Page";
 import Header from "./Header";
 import { listAccounts } from "src/request/accountsRequest";
-import { parseCurrencyARS } from "src/utils/parseCurrency";
-import { DateTime } from "luxon";
+import ListaCuentas from "./ListaCuentas";
+import PanelCuentas from "./PanelCuentas";
+
+const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 100,
+    color: "#000",
+  },
+}));
 
 export default function CuentasGeneral() {
+  const classes = useStyles();
   const [cuentas, setCuentas] = React.useState([]);
+  const [isOpenBackdrop, setOpenBackdrop] = React.useState(false);
   const theme = useTheme();
   const isMdDown = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleGetCuentas = async () => {
+    setOpenBackdrop(true);
     try {
       const { data, status } = await listAccounts();
       console.log(data);
       status === 200 ? setCuentas(data) : setCuentas([]);
+      setOpenBackdrop(false);
     } catch (error) {
+      setOpenBackdrop(false);
       console.error(error);
     }
   };
@@ -34,8 +45,6 @@ export default function CuentasGeneral() {
     (acc, cuenta) => Number(cuenta.balance) + acc,
     0
   );
-
-  console.log(saldoGeneral);
 
   React.useEffect(() => {
     handleGetCuentas();
@@ -47,43 +56,18 @@ export default function CuentasGeneral() {
         <Box mt={2}>
           <Header />
           <Box mt={3}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <Card>
-                  <CardContent>
-                    <Typography variant="h5" gutterBottom>
-                      SALDO GENERAL
-                    </Typography>
-                    <Typography variant="h4" align="right">
-                      {parseCurrencyARS(saldoGeneral)}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-              {cuentas.map((cuenta, index) => (
-                <Grid key={index} item xs={12}>
-                  <Card>
-                    <CardContent>
-                      <Typography variant="h5" gutterBottom>
-                        {cuenta.display_name}
-                      </Typography>
-                      <Typography variant="h4" gutterBottom align="right">
-                        {parseCurrencyARS(cuenta.balance)}
-                      </Typography>
-                      <Typography variant="caption">
-                        Última actualización:{" "}
-                        {DateTime.fromISO(cuenta.last_update, {
-                          setZone: "utc",
-                        }).toISODate()}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-              ))}
-            </Grid>
+            {isMdDown && (
+              <ListaCuentas cuentas={cuentas} saldoGeneral={saldoGeneral} />
+            )}
+            {!isMdDown && (
+              <PanelCuentas cuentas={cuentas} saldoGeneral={saldoGeneral} />
+            )}
           </Box>
         </Box>
       </Container>
+      <Backdrop className={classes.backdrop} open={isOpenBackdrop}>
+        <CircularProgress color="primary" />
+      </Backdrop>
     </Page>
   );
 }
