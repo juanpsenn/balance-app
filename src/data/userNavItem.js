@@ -1,4 +1,5 @@
 import HomeIcon from "@material-ui/icons/Home";
+import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 
 export default [
   {
@@ -7,7 +8,12 @@ export default [
       {
         title: "Inicio",
         icon: HomeIcon,
-        href: "/",
+        href: "/movimientos-general/",
+      },
+      {
+        title: "Cuentas",
+        icon: AccountBalanceWalletIcon,
+        href: "/cuentas-general/",
       },
     ],
   },

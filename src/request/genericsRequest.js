@@ -7,11 +7,3 @@ export const listCategories = async () => {
   });
   return response;
 };
-
-export const listAccounts = async () => {
-  const response = await axiosRequest({
-    url: "/accounts/list/",
-    method: "GET",
-  });
-  return response;
-};

@@ -21,6 +21,11 @@ export default [
         component: lazy(() => import("src/views/ListaMovimientosGeneral")),
       },
       {
+        path: "/cuentas-general/",
+        exact: true,
+        component: lazy(() => import("src/views/CuentasGeneral")),
+      },
+      {
         component: () => <Redirect to="/movimientos-general/" />,
       },
     ],

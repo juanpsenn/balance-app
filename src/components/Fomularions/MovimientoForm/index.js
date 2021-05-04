@@ -8,7 +8,8 @@ import { DateTime } from "luxon";
 import schemaValidation from "./schemaValidation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createMovement } from "src/request/movementsRequest";
-import { listCategories, listAccounts } from "src/request/genericsRequest";
+import { listCategories } from "src/request/genericsRequest";
+import { listAccounts } from "src/request/accountsRequest";
 
 const useStyles = makeStyles((theme) => ({
   dropArea: {
