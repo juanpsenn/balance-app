@@ -29,6 +29,7 @@ function MovimientoForm({ onSubmit, isLoading = () => {} }, ref) {
   const btnRef = React.createRef();
   const [categorias, setCategorias] = React.useState([]);
   const [cuentas, setCuentas] = React.useState([]);
+  const [file, setFile] = React.useState(null);
   const methods = useForm({
     mode: "onChange | onSubmit",
     defaultValues: {
@@ -45,6 +46,7 @@ function MovimientoForm({ onSubmit, isLoading = () => {} }, ref) {
     handleSubmit,
     setValue,
     reset,
+    register,
     control,
     formState: { errors },
   } = methods;
@@ -56,6 +58,7 @@ function MovimientoForm({ onSubmit, isLoading = () => {} }, ref) {
         ...data,
         amount: Number(data.type) ? data.amount : -data.amount,
         date_time: DateTime.fromJSDate(data.date_time).toISODate(),
+        image_url: file,
       });
       isLoading(false);
       onSubmit();
@@ -200,7 +203,7 @@ function MovimientoForm({ onSubmit, isLoading = () => {} }, ref) {
         </Grid>
         <input type="submit" style={{ display: "none" }} />
         <Grid item xs={12} md={6}>
-          <InputImage />
+          <InputImage setFile={setFile} file={file} />
         </Grid>
       </Grid>
     </form>
