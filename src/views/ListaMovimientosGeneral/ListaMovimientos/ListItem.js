@@ -45,6 +45,10 @@ export default function ListItem({ movimiento }) {
     setOpen(!open);
   };
 
+  const handleViewComprobante = (url) => {
+    window.open(url);
+  };
+
   return (
     <>
       <ListItemMUI
@@ -131,7 +135,9 @@ export default function ListItem({ movimiento }) {
                 </Typography>
               </Box>
               <Box>
-                <IconButton>
+                <IconButton
+                  onClick={() => handleViewComprobante(movimiento.document)}
+                >
                   <SvgIcon fontSize="small">
                     <VisibilityIcon />
                   </SvgIcon>
