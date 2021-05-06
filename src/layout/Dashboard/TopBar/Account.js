@@ -12,6 +12,7 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import { AuthContext } from "src/context/AuthContext";
+import { matchAvatarURL } from "src/utils/utils";
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -54,7 +55,11 @@ function Account() {
         onClick={handleOpen}
         ref={ref}
       >
-        {/* <Avatar alt="User" className={classes.avatar} src={null} /> */}
+        <Avatar
+          alt="User"
+          className={classes.avatar}
+          src={matchAvatarURL(username)}
+        />
         <Typography variant="h6" color="inherit">
           {`${username}`}
         </Typography>

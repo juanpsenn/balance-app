@@ -1,4 +1,4 @@
-export const matchImg = (displayName) => {
+export const matchAvatarURL = (displayName) => {
   if (displayName.includes("Juan")) {
     return "https://cdn.discordapp.com/avatars/788760849455251456/f8736ded3fbfef5b5c45545ed60389c5.png?size=128";
   } else if (displayName.includes("Micka")) {

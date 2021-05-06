@@ -15,7 +15,7 @@ import {
 import { parseCurrencyARS } from "src/utils/parseCurrency";
 import { DateTime } from "luxon";
 import { Link } from "react-router-dom";
-import { matchImg } from "src/utils/utils";
+import { matchAvatarURL } from "src/utils/utils";
 
 const useStyles = makeStyles((theme) => ({
   large: {
@@ -38,7 +38,7 @@ export default function PanelCuentas({ cuentas, saldoGeneral }) {
                 <Box mr={1}>
                   <Avatar
                     className={classes.large}
-                    src={matchImg(cuenta.display_name)}
+                    src={matchAvatarURL(cuenta.display_name)}
                   />
                 </Box>
                 <Box ml={1} width="100%">
