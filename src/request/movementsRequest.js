@@ -27,3 +27,10 @@ export const listMovements = async ({
   });
   return response;
 };
+
+const deleteMovement = async (uuid) => {
+  const response = await axiosRequest({
+    method: "PUT",
+    url: `/movements/delete/${uuid}/`,
+  });
+};

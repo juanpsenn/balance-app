@@ -79,6 +79,7 @@ function reduceChildRoutes({ acc, pathname, item, depth = 0 }) {
 export default function NavBar({ openMobile, onMobileClose, ...rest }) {
   const classes = useStyles();
   const location = useLocation();
+  const username = sessionStorage.getItem("username");
 
   React.useEffect(() => {
     if (openMobile && onMobileClose) {
@@ -92,7 +93,7 @@ export default function NavBar({ openMobile, onMobileClose, ...rest }) {
       <Box p={2}>
         <Box mt={2} textAlign="center">
           <Typography variant="h5" color="textPrimary" underline="none">
-            USERNAME
+            {username}
           </Typography>
         </Box>
       </Box>
