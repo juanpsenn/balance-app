@@ -38,7 +38,6 @@ function MovimientoForm({ onSubmit, isLoading = () => {} }, ref) {
       category: "",
       description: "",
       date_time: DateTime.now().toISODate(),
-      image_url: null,
     },
     resolver: yupResolver(schemaValidation),
   });
@@ -58,7 +57,7 @@ function MovimientoForm({ onSubmit, isLoading = () => {} }, ref) {
         ...data,
         amount: Number(data.type) ? data.amount : -data.amount,
         date_time: DateTime.fromJSDate(data.date_time).toISODate(),
-        image_url: file,
+        document: file,
       });
       isLoading(false);
       onSubmit();

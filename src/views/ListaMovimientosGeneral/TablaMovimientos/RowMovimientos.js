@@ -39,14 +39,13 @@ const useStyles = makeStyles((theme, props) => ({
   downArrow: { color: theme.palette.error.main },
 }));
 
-console.log(
-  DateTime.fromISO("2021-04-28T00:00:00Z", { setZone: "utc" }).toLocaleString(
-    DateTime.DATETIME_SHORT
-  )
-);
-
 export default function RowMovimiento({ movimiento }) {
   const classes = useStyles({ amount: Number(movimiento.amount) });
+
+  const handleViewComprobante = (url) => {
+    window.open(url);
+  };
+
   return (
     <TableRow className={classes.movimientoItem}>
       <TableCell>
@@ -68,13 +67,18 @@ export default function RowMovimiento({ movimiento }) {
         {parseCurrencyARS(movimiento.balance_to_date)}
       </TableCell>
       <TableCell align="right">
-        <CustomTooltip title="Ver movimiento">
-          <IconButton size="small">
-            <SvgIcon fontSize="small">
-              <VisibilityIcon />
-            </SvgIcon>
-          </IconButton>
-        </CustomTooltip>
+        {movimiento.document && (
+          <CustomTooltip title="Ver movimiento">
+            <IconButton
+              size="small"
+              onClick={() => handleViewComprobante(movimiento.document)}
+            >
+              <SvgIcon fontSize="small">
+                <VisibilityIcon />
+              </SvgIcon>
+            </IconButton>
+          </CustomTooltip>
+        )}
       </TableCell>
     </TableRow>
   );
