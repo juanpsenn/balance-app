@@ -26,6 +26,11 @@ export default [
         component: lazy(() => import("src/views/CuentasGeneral")),
       },
       {
+        path: "/configuracion/",
+        exact: true,
+        component: lazy(() => import("src/views/Configuracion")),
+      },
+      {
         component: () => <Redirect to="/movimientos-general/" />,
       },
     ],

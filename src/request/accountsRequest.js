@@ -7,3 +7,12 @@ export const listAccounts = async () => {
   });
   return response;
 };
+
+export const createAccount = async (data) => {
+  const response = axiosRequest({
+    method: "POST",
+    url: "/accounts/",
+    data,
+  });
+  return response;
+};

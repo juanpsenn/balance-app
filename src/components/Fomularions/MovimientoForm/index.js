@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Hidden, makeStyles, MenuItem } from "@material-ui/core";
+import { Grid, makeStyles, MenuItem } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import InputController from "src/components/FormHookControllerInputs/InputController";
 import MoneyInputController from "src/components/FormHookControllerInputs/MoneyInputController";
@@ -25,8 +25,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function MovimientoForm({ onSubmit, isLoading = () => {} }, ref) {
-  const classes = useStyles();
-  const btnRef = React.createRef();
   const [categorias, setCategorias] = React.useState([]);
   const [cuentas, setCuentas] = React.useState([]);
   const [file, setFile] = React.useState(null);
@@ -43,9 +41,7 @@ function MovimientoForm({ onSubmit, isLoading = () => {} }, ref) {
   });
   const {
     handleSubmit,
-    setValue,
     reset,
-    register,
     control,
     formState: { errors },
   } = methods;

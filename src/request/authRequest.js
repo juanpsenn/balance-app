@@ -10,4 +10,12 @@ const login = async ({ username, password }) => {
   return response;
 };
 
+export const listUser = async () => {
+  const response = await axiosRequest({
+    url: "/users/list/",
+    method: "GET",
+  });
+  return response;
+};
+
 export default { login };
