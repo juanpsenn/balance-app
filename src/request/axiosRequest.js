@@ -7,7 +7,9 @@ export default async function axiosRequest({
   header,
   ...rest
 }) {
-  const defaultHeader = { ...header };
+  const token = sessionStorage.getItem("_uid");
+  const authorization = { Authorization: `Token ${token}` };
+  const defaultHeader = { ...authorization, ...header };
   const baseUrl =
     process.env.NODE_ENV === "production"
       ? "https://juansennait.pythonanywhere.com"
