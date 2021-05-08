@@ -4,6 +4,6 @@ stages:
 deploy:
   stage: deploy
   script:
-    - yarn install
-    - yarn run build
+    - npm install
+    - npm run build
     - if["$CI_COMMIT_REF_NAME" == "master"] cp -R build/* /var/www/balace-app.com; fi
