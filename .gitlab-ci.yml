@@ -1,8 +1,7 @@
-stages:
-  -deploy
+stages: -deploy
 
 deploy:
-  stage:deploy
+  stage: deploy
   script:
     - yarn install
     - yarn run build
