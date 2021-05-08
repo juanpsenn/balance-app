@@ -12,7 +12,7 @@ export default async function axiosRequest({
   const defaultHeader = token ? { ...authorization, ...header } : { ...header };
   const baseUrl =
     process.env.NODE_ENV === "production"
-      ? "https://juansennait.pythonanywhere.com"
+      ? "http://ec2-18-223-126-150.us-east-2.compute.amazonaws.com"
       : "http://localhost:8000";
   const config = {
     method,
